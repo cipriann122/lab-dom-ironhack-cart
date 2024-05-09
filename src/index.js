@@ -37,7 +37,14 @@ function calculateAll() {
 function removeProduct(event) {
   const target = event.currentTarget;
   console.log("The target in remove is:", target);
-  //... your code goes here
+  // Create the row variable which sets the target to the grandparent of the row which is the table row
+  const row = target.parentNode.parentNode;
+  // Create the parent variable which is the whole table head
+  const parent = row.parentNode;
+  // Use the removeChild() method to remove the table row from the table head
+  parent.removeChild(row);
+  // Recalculate and update all of the prices to the total
+  calculateAll();
 }
 
 // ITERATION 5
@@ -49,6 +56,8 @@ function createProduct() {
 window.addEventListener("load", () => {
   const calculatePricesBtn = document.getElementById("calculate");
   calculatePricesBtn.addEventListener("click", calculateAll);
-
-  //... your code goes here
+  const removeBtns = document.querySelectorAll(".btn-remove");
+  for (let button of removeBtns) {
+    button.addEventListener("click", removeProduct);
+  }
 });
